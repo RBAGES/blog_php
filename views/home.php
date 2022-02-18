@@ -1,5 +1,5 @@
-<?php 
-include_once PATH_VIEW_INCLUDES.'header.php';
+<?php
+include_once PATH_VIEW_INCLUDES . 'header.php';
 
 ?>
 
@@ -7,4 +7,4 @@ include_once PATH_VIEW_INCLUDES.'header.php';
 
 <?php
 
-include_once PATH_VIEW_INCLUDES.'footer.php';
+include_once PATH_VIEW_INCLUDES . 'footer.php';
