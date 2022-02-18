@@ -23,6 +23,7 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
                 <div class="buttons">
                     <a class="btn btn-primary" href="<?= url('article',$article->id) ?>">Poursuivre vers l'article <i class="fa-solid fa-eye"></i></a>
                     <a class="btn btn-primary ms-3" href="<?= url('edit-article',$article->id) ?>">Modifier <i class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="btn btn-danger ms-1" href="<?= url('delete-article',$article->id) ?>">Supprimer <i class="fa-solid fa-pen-to-square"></i></a>
                 </div>
             </div>
 

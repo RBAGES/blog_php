@@ -35,6 +35,10 @@ if (empty($_GET['route'])) {
             include_once PATH_CONTROLERS . 'article-controler.php';
             editArticle();
             break;
+        case 'delete-article':
+            include_once PATH_CONTROLERS . 'article-controler.php';
+            deleteArticle();
+            break;
 
         default:
             displayError(404);

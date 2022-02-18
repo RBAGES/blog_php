@@ -5,9 +5,8 @@ require_once PATH_MODELS . 'Article.php';
 /**
  * récupère tous les articles dans la base de données et appelle la vue qui affiche la liste
  */
-function listArticles(string $title='nos articles')
+function listArticles(string $title = 'nos articles')
 {
-    $title = $title;
     $articles = Article::all();
 
     include_once PATH_VIEWS . 'list-articles.php';
@@ -17,23 +16,10 @@ function listArticles(string $title='nos articles')
 /**
  * récupère un article en fonction de l'id passé en url et appelle la vue qui affiche les détails d'un article
  */
-function detailsArticle(string $title='detail de l\'article')
+function detailsArticle(string $title = 'detail de l\'article')
 {
-    $title = $title;
-
-    if (empty($_GET['id']))
-        displayError(404);
-
-    else {
-        //retrieveByPK déclenche une erreur si jamais l'id n'existe pas, c'est pour ça que j'utilise un try catch
-        try {
-
-            $article = Article::retrieveByPK($_GET['id']);
-            include_once PATH_VIEWS . 'article-details.php';
-        } catch (\Throwable $th) {
-            displayError(404);
-        }
-    }
+    $article = getArticle();
+    include_once PATH_VIEWS . 'article-details.php';
 }
 
 
@@ -41,10 +27,8 @@ function detailsArticle(string $title='detail de l\'article')
  * affiche le formulaire d'ajout d'un article et fait les vérifications lors du submit
  * @param object $article est utilisé pour être passé en paramètre au handler, s'il est null un nouvel article sera créé
  */
-function manageArticle(object $article = null,string $title='ajouter un article')
+function manageArticle(object $article = null, string $title = 'ajouter un article')
 {
-
-    $title = $title;
 
     //le message d'erreur qui sera affiché s'il y en a
     $errors = [];
@@ -56,7 +40,7 @@ function manageArticle(object $article = null,string $title='ajouter un article'
 
             // si l'image est renseignée, elle doit être une url
             if (!empty($_POST['image']) && (!filter_var($_POST['image'], FILTER_VALIDATE_URL)))
-                $errors[]= 'Vous devez renseigner une url correcte pour l\'image';
+                $errors[] = 'Vous devez renseigner une url correcte pour l\'image';
 
 
             // si la date est renseignée, elle doit être correcte
@@ -78,12 +62,18 @@ function manageArticle(object $article = null,string $title='ajouter un article'
 /**
  * enregistre l'article dans la base de données
  * @param object $article si l'article passé est null alors on crée un nouveau article sinon on modifie $article et on l'enregistre
+ * @param bool $delete true si on veut supprimer l'article en paramètre
  */
-function manageArticleHandler(object $article = null)
+function manageArticleHandler(object $article = null, bool $delete = false)
 {
-    if(is_null($article))
-        $article = new Article();
 
+    if (is_null($article))
+        $article = new Article();
+    else if ($delete) {
+        $article->delete();
+        redirect('list-articles');
+        die();
+    }
     $article->titre = $_POST['titre'];
     $article->contenu = $_POST['contenu'];
     $article->image = $_POST['image'];
@@ -99,22 +89,40 @@ function manageArticleHandler(object $article = null)
  * affiche le formulaire pré rempli avec les données de l'article
  * si le formulaire est submit, alors on appelle la méthode addArticle avec en paramètre l'article récupéré 
  */
-function editArticle(string $title='modifier l\'article')
+function editArticle(string $title = 'modifier l\'article')
 {
     $errors = [];
 
+    $article = getArticle();
+    if (empty($_POST['submit']))
+        include_once PATH_VIEWS . 'article-form.php';
+
+    if (!empty($_POST['submit']))
+        manageArticle($article, $title);
+}
+
+/**
+ * supprime l'article qui a l'id passé en url
+ */
+function deleteArticle()
+{
+    $article = getArticle();
+    manageArticleHandler($article, true);
+}
+
+/**
+ * récupère l'article s'il existe, sinon renvoie sur une page 404
+ */
+function getArticle()
+{
     if (empty($_GET['id']))
         displayError(404);
     else {
         try {
             $article = Article::retrieveByPK($_GET['id']);
-            if(empty($_POST['submit']))
-                include_once PATH_VIEWS . 'article-form.php';
-
+            return $article;
         } catch (\Throwable $th) {
             displayError(404);
         }
     }
-    if(!empty($_POST['submit']))
-    manageArticle($article,$title);
 }
