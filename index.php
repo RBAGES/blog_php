@@ -17,26 +17,21 @@ if (empty($_GET['route'])) {
 } else {
     switch ($_GET['route']) {
         case 'home':
-            $title = 'home';
             include_once PATH_CONTROLERS . 'home-controler.php';
             break;
         case 'list-articles':
-            $title = 'nos articles';
             include_once PATH_CONTROLERS . 'article-controler.php';
             listArticles();
             break;
         case 'article':
-            $title = 'article';
             include_once PATH_CONTROLERS . 'article-controler.php';
             detailsArticle();
             break;
         case 'add-article':
-            $title = 'ajouter un article';
             include_once PATH_CONTROLERS . 'article-controler.php';
-            addArticle();
+            manageArticle();
             break;
         case 'edit-article':
-            $title = 'modifier un article';
             include_once PATH_CONTROLERS . 'article-controler.php';
             editArticle();
             break;

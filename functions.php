@@ -89,22 +89,6 @@ function displayError(int $code){
 
 
 /**
- * retourne une chaine pour remplir un champ de formulaire avec la valeur correspondante (si l'utilisateur a déjà submit et qu'il y a eu des erreurs, il n'est pas obligé de re-remplir les champs qui étaient corrects)
- * 
- * @param string $att le nom de l'attribut correspondant au champ
- * @param string $type le type de champ à préremplir
- * @return string la chaine permettant de préremplir le champ
- * 
- */
-function preFill(string $att, string $type='input'):string{
-    $str = '';
-    global $article;
-    if(isset($_POST[$att]))
-        $str = (($type==='input')?'value="':'').$_POST[$att].(($type==='input')?'"':'');
-    return $str;
-}
-
-/**
  * fonction qui redirige vers l'url demandée
  */
 function redirect(string $url, int $id = -1){
