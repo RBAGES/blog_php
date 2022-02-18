@@ -5,7 +5,8 @@ require_once PATH_MODELS . 'SimpleOrm.php';
 /**
  * Se connecte à la base de données
  */
-function connexion(){
+function connexion()
+{
     $connexion = new mysqli('localhost', 'root', '');
     if ($connexion->connect_error) die('Impossible de se connecter à la BDD.');
 
@@ -19,8 +20,9 @@ function connexion(){
  * @param int $id l'id à ajouter dans l'url si nécessaire
  * @return string l'url pour le routeur
  */
-function url(string $route,int $id=-1):string{
-    return 'index.php?route='.$route.(($id!==-1)?"&id=$id":'');
+function url(string $route, int $id = -1): string
+{
+    return 'index.php?route=' . $route . (($id !== -1) ? "&id=$id" : '');
 }
 
 
@@ -30,7 +32,8 @@ function url(string $route,int $id=-1):string{
  * @param int $code le code de l'erreur
  * @return string l'erreur formatée pour l'affichage
  */
-function errorRoute(int $code):string{
+function errorRoute(int $code): string
+{
     $error = '';
     switch ($code) {
         case 401:
@@ -53,11 +56,22 @@ function errorRoute(int $code):string{
         case 101:
             $error = 'Aucun produit n\'est disponible';
             break;
-        
+
         default:
             $error = 'Erreur inconnue';
             break;
     }
 
-    return $error.'<br><a href="'.url('home').'">Retour à la page d\'acceuil</a>';
+    return $error . '<br><a href="' . url('home') . '">Retour à la page d\'acceuil</a>';
+}
+
+/**
+ * retourne une version tronqué de la chaine
+ * @param string $desc la chaîne à réduire
+ * @param int $length la longueur max de la nouvelle chaîne
+ * @return string la nouvelle chaîne réduite
+ */
+function summarize(string $desc, int $lenght = 300): string
+{
+    return mb_substr($desc, 0, $lenght) . ((strlen($desc) > $lenght) ? '...' : '');
 }

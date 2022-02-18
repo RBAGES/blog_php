@@ -24,9 +24,13 @@ if (empty($_GET['route'])) {
             $title = 'nos articles';
             include_once PATH_CONTROLERS . 'list-articles-controler.php';
             break;
+        case 'article':
+            $title = 'article';
+            include_once PATH_CONTROLERS . 'article-details-controler.php';
+            break;
 
         default:
-            $code = 404;
+            $errorCode = 404;
             $title = 'page introuvable';
             include_once PATH_VIEWS . 'errorPage.php';
             break;

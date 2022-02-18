@@ -19,8 +19,8 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
                 <strong class="d-inline-block mb-2 text-primary"><?= $article->auteur ?></strong>
                 <h3 class="mb-0"><?= $article->titre ?></h3>
                 <div class="mb-1 text-muted"><?= $article->date_de_publication ?></div>
-                <p class="card-text mb-auto"><?= $article->contenu ?></p>
-                <a href="#">Poursuivre vers l'article</a>
+                <p class="card-text mb-auto"><?= summarize($article->contenu) ?></p>
+                <a href="<?= url('article',$article->id) ?>">Poursuivre vers l'article</a>
             </div>
 
         </div>
