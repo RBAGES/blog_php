@@ -5,20 +5,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?= url('home') ?>">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?= url('list-articles') ?>">Liste des articles</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?= url('add-article') ?>">Ajouter un article</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<?= url('login') ?>">Se connecter</a>
-        </li>
-      </ul>
+          <div class="navbar-nav justify-content-between flex-grow-1">
+            <div class="nav__left d-flex">
+              <a class="nav-link active" aria-current="page" href="<?= url('home') ?>">Home</a>
+              <a class="nav-link active" aria-current="page" href="<?= url('list-articles') ?>">Liste des articles</a>
+              <a class="nav-link active" aria-current="page" href="<?= url('add-article') ?>">Ajouter un article</a>
+            </div>
+            <div class="nav__right d-flex">
+              <a class="nav-link active" aria-current="page" href="<?= url('login') ?>">Se connecter</a>
+              <a class="nav-link active" aria-current="page" href="<?= url('signout') ?>">Se déconnecter</a>
+            </div>
+          </div>
     </div>
   </div>
 </nav>

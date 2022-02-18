@@ -46,4 +46,10 @@ function loginUserHandler(object $utilisateur){
     redirect('list-articles');
 }
 
-
+/**
+ * supprime la session puis redirige sur la liste des articles
+ */
+function signoutUserHandler(){
+    session_destroy();
+    redirect('list-articles');
+}

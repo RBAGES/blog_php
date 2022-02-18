@@ -44,6 +44,10 @@ if (empty($_GET['route'])) {
             include_once PATH_CONTROLERS . 'user-controler.php';
             loginUser();
             break;
+        case 'signout':
+            include_once PATH_CONTROLERS . 'user-controler.php';
+            signoutUserHandler();
+            break;
 
         default:
             displayError(404);
