@@ -11,13 +11,13 @@
               <a class="nav-link active" aria-current="page" href="<?= url('list-articles') ?>">Liste des articles</a>
               <a class="nav-link active" aria-current="page" href="<?= url('add-article') ?>">Ajouter un article</a>
             </div>
-            <div class="nav__right d-flex">
+            <div class="nav__right d-flex align-items-center">
               <?php if(empty($_SESSION['id'])){?>
               <a class="nav-link active" aria-current="page" href="<?= url('login') ?>">Se connecter</a>
               <?php } else { ?>
-              <span class="text-success"> Bienvenue <?=  $_SESSION['pseudo'] ?></span>
-              <img height="30" src="<?= $_SESSION['avatar'] ?>" alt="avatar">
-              <a class="nav-link active" aria-current="page" href="<?= url('signout') ?>">Se déconnecter</a>
+              <span class="text-success mx-3"> Bienvenue <?=  $_SESSION['pseudo']??'' ?>!</span>
+              <img height="30" src="<?= $_SESSION['avatar']??'' ?>" alt="avatar">
+              <a class="nav-link active mx-3" aria-current="page" href="<?= url('signout') ?>">Se déconnecter</a>
               <?php } ?>
             </div>
           </div>
