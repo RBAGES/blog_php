@@ -22,3 +22,42 @@ function connexion(){
 function url(string $route,int $id=-1):string{
     return 'index.php?route='.$route.(($id!==-1)?"&id=$id":'');
 }
+
+
+
+/**
+ * Renvoie l'erreur correspondante au code fourni
+ * @param int $code le code de l'erreur
+ * @return string l'erreur formatée pour l'affichage
+ */
+function errorRoute(int $code):string{
+    $error = '';
+    switch ($code) {
+        case 401:
+            $error = 'Vous devez être authentifié pour accéder à cette page';
+            break;
+        case 404:
+            $error = 'La page demandée n\'existe pas';
+            break;
+        case 403:
+            $error = 'Vous n\'avez pas l\'autorisation d\'accéder à cette page';
+            break;
+        case 500:
+            $error = 'Le serveur a eu un problème';
+            break;
+            // code custom qui correspond à un utilisateur déjà connecté
+        case 100:
+            $error = 'Vous êtes déjà connecté';
+            break;
+            // code custom qui correspond à une liste vide de produits 
+        case 101:
+            $error = 'Aucun produit n\'est disponible';
+            break;
+        
+        default:
+            $error = 'Erreur inconnue';
+            break;
+    }
+
+    return $error.'<br><a href="'.url('home').'">Retour à la page d\'acceuil</a>';
+}

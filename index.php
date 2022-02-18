@@ -26,7 +26,9 @@ if (empty($_GET['route'])) {
             break;
 
         default:
-            # code...
+            $code = 404;
+            $title = 'page introuvable';
+            include_once PATH_VIEWS . 'errorPage.php';
             break;
     }
 }
