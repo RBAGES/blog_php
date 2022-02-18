@@ -35,6 +35,11 @@ if (empty($_GET['route'])) {
             include_once PATH_CONTROLERS . 'article-controler.php';
             addArticle();
             break;
+        case 'edit-article':
+            $title = 'modifier un article';
+            include_once PATH_CONTROLERS . 'article-controler.php';
+            editArticle();
+            break;
 
         default:
             displayError(404);

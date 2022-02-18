@@ -37,13 +37,14 @@ function detailsArticle()
 
 /**
  * affiche le formulaire d'ajout d'un article et fait les vérifications lors du submit
+ * @param object $article est utilisé pour être passé en paramètre au handler, s'il est null un nouvel article sera créé
  */
-function addArticle()
+function addArticle(object $article = null)
 {
 
 
     //le message d'erreur qui sera affiché s'il y en a
-    $errorMsg = '';
+    $errors = [];
 
     if (!empty($_POST['submit'])) {
 
@@ -52,20 +53,20 @@ function addArticle()
 
             // si l'image est renseignée, elle doit être une url
             if (!empty($_POST['image']) && (!filter_var($_POST['image'], FILTER_VALIDATE_URL)))
-                $errorMsg .= 'Vous devez renseigner une url correcte pour l\'image';
+                array_push($errors, 'Vous devez renseigner une url correcte pour l\'image');
 
 
             // si la date est renseignée, elle doit être correcte
             if (!empty($_POST['date_de_publication']) && (!DateTime::createFromFormat('Y-m-d', $_POST['date_de_publication'])))
-                $errorMsg .= ((!empty($errorMsg)) ? '<br>' : '') . 'date incorrecte';
+                array_push($errors, 'date incorrecte');
 
 
             // si pas d'erreur on appelle le handler pour enregistrer le produit
-            if (empty($errorMsg)) {
-                addArticleHandler();
+            if (empty($errors)) {
+                addArticleHandler($article);
             }
         } else
-            $errorMsg = 'Veuillez remplir tous les champs obligatoires (avec un *)';
+            array_push($errors, 'Veuillez remplir tous les champs obligatoires (avec un *)');
     }
 
     include_once PATH_VIEWS . 'article-form.php';
@@ -73,10 +74,12 @@ function addArticle()
 
 /**
  * enregistre l'article dans la base de données
+ * @param object $article si l'article passé est null alors on crée un nouveau article sinon on modifie $article et on l'enregistre
  */
-function addArticleHandler()
+function addArticleHandler(object $article = null)
 {
-    $article = new Article();
+    if(is_null($article))
+        $article = new Article();
 
     $article->titre = $_POST['titre'];
     $article->contenu = $_POST['contenu'];
@@ -86,4 +89,29 @@ function addArticleHandler()
 
     $article->save();
     redirect('list-articles');
+}
+
+/**
+ * récupère l'article avec l'id de l'url
+ * affiche le formulaire pré rempli avec les données de l'article
+ * si le formulaire est submit, alors on appelle la méthode addArticle avec en paramètre l'article récupéré 
+ */
+function editArticle()
+{
+    $errors = [];
+
+    if (empty($_GET['id']))
+        displayError(404);
+    else {
+        try {
+            $article = Article::retrieveByPK($_GET['id']);
+            if(empty($_POST['submit']))
+                include_once PATH_VIEWS . 'article-form.php';
+
+        } catch (\Throwable $th) {
+            displayError(404);
+        }
+    }
+    if(!empty($_POST['submit']))
+        addArticle($article);
 }

@@ -20,7 +20,10 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
                 <h3 class="mb-0"><?= $article->titre ?></h3>
                 <div class="mb-1 text-muted"><?= $article->date_de_publication ?></div>
                 <p class="card-text mb-auto"><?= summarize($article->contenu) ?></p>
-                <a href="<?= url('article',$article->id) ?>">Poursuivre vers l'article</a>
+                <div class="buttons">
+                    <a class="btn btn-primary" href="<?= url('article',$article->id) ?>">Poursuivre vers l'article <i class="fa-solid fa-eye"></i></a>
+                    <a class="btn btn-primary ms-3" href="<?= url('edit-article',$article->id) ?>">Modifier <i class="fa-solid fa-pen-to-square"></i></a>
+                </div>
             </div>
 
         </div>

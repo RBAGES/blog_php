@@ -98,6 +98,7 @@ function displayError(int $code){
  */
 function preFill(string $att, string $type='input'):string{
     $str = '';
+    global $article;
     if(isset($_POST[$att]))
         $str = (($type==='input')?'value="':'').$_POST[$att].(($type==='input')?'"':'');
     return $str;
