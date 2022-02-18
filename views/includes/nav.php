@@ -15,6 +15,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<?= url('add-article') ?>">Ajouter un article</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?= url('login') ?>">Se connecter</a>
+        </li>
       </ul>
     </div>
   </div>

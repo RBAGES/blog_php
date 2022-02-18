@@ -8,6 +8,7 @@ define('PATH_CONTROLERS', __DIR__ . '/controlers/');
 define('PATH_VIEWS', __DIR__ . '/views/');
 define('PATH_VIEW_INCLUDES', __DIR__ . '/views/includes/');
 
+session_start();
 include_once __DIR__ . '/functions.php';
 
 connexion();
@@ -38,6 +39,10 @@ if (empty($_GET['route'])) {
         case 'delete-article':
             include_once PATH_CONTROLERS . 'article-controler.php';
             deleteArticle();
+            break;
+        case 'login':
+            include_once PATH_CONTROLERS . 'user-controler.php';
+            loginUser();
             break;
 
         default:

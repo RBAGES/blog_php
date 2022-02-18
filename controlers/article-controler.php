@@ -72,7 +72,6 @@ function manageArticleHandler(object $article = null, bool $delete = false)
     else if ($delete) {
         $article->delete();
         redirect('list-articles');
-        die();
     }
     $article->titre = $_POST['titre'];
     $article->contenu = $_POST['contenu'];
