@@ -8,17 +8,19 @@ include_once PATH_VIEW_INCLUDES . '/header.php';
 <div class="container mt-5">
     <form method="post">
         <div class="mb-3">
-            <label for="identifiant" class="form-label">identifiant : </label>
+            <label for="identifiant" class="form-label required">identifiant : </label>
             <input type="text" class="form-control" id="identifiant" name="identifiant" value="<?= $_POST['identifiant'] ?? '' ?>">
         </div>
 
         <div class="mb-3">
-            <label for="mot_de_passe" class="form-label">mot de passe : </label>
+            <label for="mot_de_passe" class="form-label required">mot de passe : </label>
             <input type="password" class="form-control" id="mot_de_passe" name="mot_de_passe">
         </div>
 
         <input type="submit" class="btn btn-primary" name="submit" value="Valider">
+        
     </form>
+    <a href="<?= url('create-account') ?>">Je n'ai pas de compte</a>
 
     <?php
     foreach ($errors as $error) {

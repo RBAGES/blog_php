@@ -48,6 +48,10 @@ if (empty($_GET['route'])) {
             include_once PATH_CONTROLERS . 'user-controler.php';
             signoutUserHandler();
             break;
+        case 'create-account':
+            include_once PATH_CONTROLERS . 'user-controler.php';
+            createUser();
+            break;
 
         default:
             displayError(404);

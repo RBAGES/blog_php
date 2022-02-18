@@ -53,3 +53,32 @@ function signoutUserHandler(){
     session_destroy();
     redirect('list-articles');
 }
+
+function createUser($title = 'créer un compte'){
+
+    $errors = [];
+    
+    
+    
+    if(!empty($_POST['submit'])){
+        if(!empty($_POST['pseudo']) && !empty($_POST['identifiant']) && !empty($_POST['mot_de_passe'])){
+            createUserHandler();
+        }
+        else
+        $errors[] = 'Veuillez remplir tous les champs obligatoires (ceux avec un * rouge)';
+    }
+
+    include PATH_VIEWS. 'user-create-form.php';
+
+}
+
+function createUserHandler(){
+    $utilisateur = new utilisateur();
+    $utilisateur->pseudo = $_POST['pseudo'];
+    $utilisateur->mot_de_passe = password_hash($_POST['mot_de_passe'],PASSWORD_BCRYPT);
+    $utilisateur->avatar = $_POST['avatar'];
+    $utilisateur->identifiant = $_POST['identifiant'];
+
+    $utilisateur->save();
+    redirect('list-articles');
+}
