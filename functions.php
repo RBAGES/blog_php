@@ -81,7 +81,32 @@ function summarize(string $desc, int $lenght = 300): string
  * @param int $code le code le l'erreur pour savoir quel message afficher (cf fonction errorMessage)
  */
 function displayError(int $code){
+    $title = 'Erreur '.$code;
     $errorCode = $code;
     include_once PATH_VIEWS.'errorPage.php';
+    die();
+}
+
+
+/**
+ * retourne une chaine pour remplir un champ de formulaire avec la valeur correspondante (si l'utilisateur a déjà submit et qu'il y a eu des erreurs, il n'est pas obligé de re-remplir les champs qui étaient corrects)
+ * 
+ * @param string $att le nom de l'attribut correspondant au champ
+ * @param string $type le type de champ à préremplir
+ * @return string la chaine permettant de préremplir le champ
+ * 
+ */
+function preFill(string $att, string $type='input'):string{
+    $str = '';
+    if(isset($_POST[$att]))
+        $str = (($type==='input')?'value="':'').$_POST[$att].(($type==='input')?'"':'');
+    return $str;
+}
+
+/**
+ * fonction qui redirige vers l'url demandée
+ */
+function redirect(string $url, int $id = -1){
+    header("Location: ".url($url,$id));
     die();
 }

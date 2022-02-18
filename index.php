@@ -30,9 +30,13 @@ if (empty($_GET['route'])) {
             include_once PATH_CONTROLERS . 'article-controler.php';
             detailsArticle();
             break;
+        case 'add-article':
+            $title = 'ajouter un article';
+            include_once PATH_CONTROLERS . 'article-controler.php';
+            addArticle();
+            break;
 
         default:
-            $title = 'page introuvable';
             displayError(404);
             break;
     }

@@ -12,6 +12,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<?= url('list-articles') ?>">Liste des articles</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?= url('add-article') ?>">Ajouter un article</a>
+        </li>
       </ul>
     </div>
   </div>
