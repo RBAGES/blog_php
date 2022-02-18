@@ -15,6 +15,8 @@
               <?php if(empty($_SESSION['id'])){?>
               <a class="nav-link active" aria-current="page" href="<?= url('login') ?>">Se connecter</a>
               <?php } else { ?>
+              <span class="text-success"> Bienvenue <?=  $_SESSION['pseudo'] ?></span>
+              <img height="30" src="<?= $_SESSION['avatar'] ?>" alt="avatar">
               <a class="nav-link active" aria-current="page" href="<?= url('signout') ?>">Se déconnecter</a>
               <?php } ?>
             </div>
