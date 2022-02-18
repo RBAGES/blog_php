@@ -14,9 +14,13 @@
             <div class="nav__right d-flex align-items-center">
               <?php if(empty($_SESSION['id'])){?>
               <a class="nav-link active" aria-current="page" href="<?= url('login') ?>">Se connecter</a>
-              <?php } else { ?>
-              <span class="text-success mx-3"> Bienvenue <?=  $_SESSION['pseudo']??'' ?>!</span>
-              <img height="30" src="<?= $_SESSION['avatar']??'' ?>" alt="avatar">
+              <?php } else { 
+              if(!empty( $_SESSION['pseudo'])){?>
+              <span class="text-success mx-3"> Bienvenue <?=  $_SESSION['pseudo'] ?>!</span>
+              <?php } 
+              if(!empty( $_SESSION['avatar'])){?>
+              <img height="30" src="<?= $_SESSION['avatar'] ?>" alt="avatar">
+              <?php } ?>
               <a class="nav-link active mx-3" aria-current="page" href="<?= url('signout') ?>">Se déconnecter</a>
               <?php } ?>
             </div>
