@@ -12,8 +12,11 @@
               <a class="nav-link active" aria-current="page" href="<?= url('add-article') ?>">Ajouter un article</a>
             </div>
             <div class="nav__right d-flex">
+              <?php if(empty($_SESSION['id'])){?>
               <a class="nav-link active" aria-current="page" href="<?= url('login') ?>">Se connecter</a>
+              <?php } else { ?>
               <a class="nav-link active" aria-current="page" href="<?= url('signout') ?>">Se déconnecter</a>
+              <?php } ?>
             </div>
           </div>
     </div>
