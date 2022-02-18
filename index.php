@@ -22,11 +22,13 @@ if (empty($_GET['route'])) {
             break;
         case 'list-articles':
             $title = 'nos articles';
-            include_once PATH_CONTROLERS . 'list-articles-controler.php';
+            include_once PATH_CONTROLERS . 'article-controler.php';
+            listArticles();
             break;
         case 'article':
             $title = 'article';
-            include_once PATH_CONTROLERS . 'article-details-controler.php';
+            include_once PATH_CONTROLERS . 'article-controler.php';
+            detailsArticle();
             break;
 
         default:

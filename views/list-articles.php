@@ -5,7 +5,7 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
 ?>
 
 
-<div class="container">
+<div class="container mt-5">
 
 
     <?php foreach ($articles as $article) { ?>

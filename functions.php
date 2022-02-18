@@ -32,7 +32,7 @@ function url(string $route, int $id = -1): string
  * @param int $code le code de l'erreur
  * @return string l'erreur formatée pour l'affichage
  */
-function errorRoute(int $code): string
+function errorMessage(int $code): string
 {
     $error = '';
     switch ($code) {
@@ -74,4 +74,14 @@ function errorRoute(int $code): string
 function summarize(string $desc, int $lenght = 300): string
 {
     return mb_substr($desc, 0, $lenght) . ((strlen($desc) > $lenght) ? '...' : '');
+}
+
+/**
+ * affiche la page d'erreur voulue et die
+ * @param int $code le code le l'erreur pour savoir quel message afficher (cf fonction errorMessage)
+ */
+function displayError(int $code){
+    $errorCode = $code;
+    include_once PATH_VIEWS.'errorPage.php';
+    die();
 }
