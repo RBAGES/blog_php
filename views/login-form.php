@@ -16,6 +16,12 @@ include_once PATH_VIEW_INCLUDES . '/header.php';
             <label for="mot_de_passe" class="form-label required">mot de passe : </label>
             <input type="password" class="form-control" id="mot_de_passe" name="mot_de_passe">
         </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="true" name="rememberMe" id="rememberMe" <?= (isset($_POST["rememberMe"]))?' checked': '' ?>>
+            <label class="form-check-label" for="rememberMe">
+                Se souvenir de moi
+            </label>
+        </div>
 
         <input type="submit" class="btn btn-primary" name="submit" value="Valider">
         

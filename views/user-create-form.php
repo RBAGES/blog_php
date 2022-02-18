@@ -23,6 +23,10 @@ include_once PATH_VIEW_INCLUDES . '/header.php';
             <label for="mot_de_passe" class="form-label required">mot de passe : </label>
             <input required="required" type="password" class="form-control" id="mot_de_passe" name="mot_de_passe">
         </div>
+        <div class="mb-3">
+            <label for="validation_mot_de_passe" class="form-label required">valider votre mot de passe : </label>
+            <input required="required" type="password" class="form-control" id="validation_mot_de_passe" name="validation_mot_de_passe">
+        </div>
 
         <input type="submit" class="btn btn-primary" name="submit" value="Valider">
     </form>

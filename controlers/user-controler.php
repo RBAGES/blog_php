@@ -16,7 +16,7 @@ function loginUser($title='se connecter'){
                 $errors[] = 'Cet identifiant n\'existe pas';
                 
 
-            if(!(password_verify($_POST['mot_de_passe'],$utilisateur->mot_de_passe)))
+            if(!empty($utilisateur) && !(password_verify($_POST['mot_de_passe'],$utilisateur->mot_de_passe)))
                 $errors[] = 'Mauvais mot de passe';
 
             if(empty($errors))
@@ -37,6 +37,9 @@ function loginUser($title='se connecter'){
  */
 function loginUserHandler(object $utilisateur){
 
+    if(!empty($_POST['rememberMe']))
+        setcookie('id',$utilisateur->id, time()+60*60*24*30);
+    
     $_SESSION['id'] = $utilisateur->id;
     $_SESSION['identifiant'] = $utilisateur->identifiant;
     $_SESSION['pseudo'] = $utilisateur->pseudo;
@@ -50,19 +53,24 @@ function loginUserHandler(object $utilisateur){
  * supprime la session puis redirige sur la liste des articles
  */
 function signoutUserHandler(){
+    setcookie('id','',0);
     session_destroy();
     redirect('list-articles');
 }
 
+/**
+ * appelle le formulaire de création de compte et fait les test quand celui-ci est submit
+ */
 function createUser($title = 'créer un compte'){
 
     $errors = [];
-    
-    
-    
     if(!empty($_POST['submit'])){
-        if(!empty($_POST['pseudo']) && !empty($_POST['identifiant']) && !empty($_POST['mot_de_passe'])){
+        if(!empty($_POST['pseudo']) && !empty($_POST['identifiant']) && !empty($_POST['mot_de_passe']) && !empty($_POST['validation_mot_de_passe'])){
+            if($_POST['validation_mot_de_passe'] === $_POST['mot_de_passe'])
             createUserHandler();
+            else
+                $errors[] = 'les mots de passe ne correspondent pas';
+
         }
         else
         $errors[] = 'Veuillez remplir tous les champs obligatoires (ceux avec un * rouge)';
@@ -72,6 +80,9 @@ function createUser($title = 'créer un compte'){
 
 }
 
+/**
+ * crée un nouvel utilisateur et l'enregistre dans la base à partir des données du formulaire
+ */
 function createUserHandler(){
     $utilisateur = new utilisateur();
     $utilisateur->pseudo = $_POST['pseudo'];
