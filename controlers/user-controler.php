@@ -80,5 +80,5 @@ function createUserHandler(){
     $utilisateur->identifiant = $_POST['identifiant'];
 
     $utilisateur->save();
-    redirect('list-articles');
+    redirect('login');
 }
