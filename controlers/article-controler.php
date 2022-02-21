@@ -61,7 +61,8 @@ function manageArticle(object $article = null, string $title = 'ajouter un artic
                 $uploadResult = saveUploadedFile($_FILES['image']);
                 if(!empty($uploadResult['errors']))
                     $errors = array_merge($errors,$uploadResult['errors']);
-            }
+            }else if(!is_null($article))
+                unlink($article->image);
             
 
             // si pas d'erreur on appelle le handler pour enregistrer le produit

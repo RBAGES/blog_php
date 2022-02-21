@@ -25,7 +25,7 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">image de l'article : </label>
-            <input type="file" class="form-control" id="image" name="image">
+            <div class="d-flex align-items-center"><input type="file" class="form-control" id="image" name="image"></div>
         </div>
         
         <input type="submit" class="btn btn-primary" name="submit" value="Valider">
@@ -39,7 +39,7 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
             <?php
         }
     ?>
-
+<script src="assets/js/files.js"></script>
 </div>
 
 

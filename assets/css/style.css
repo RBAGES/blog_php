@@ -8,3 +8,8 @@ label.required:after{
     content: '*';
     color: red;
 }
+
+#remove-file:hover{
+    cursor: pointer;
+    color: rgb(194, 19, 19);
+}

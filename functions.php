@@ -177,10 +177,9 @@ function saveUploadedFile(array $file):array{
 
     $type = explode('/',$file['type'])[0];
     $extension = '.'.pathinfo($file['name'],PATHINFO_EXTENSION);
-    $originalName = pathinfo($file['name'],PATHINFO_FILENAME);
     $size = $file['size'];
     $error = $file['error'];
-    $newName = uniqid('image').'-'.$originalName.$extension;
+    $newName = uniqid('image').$extension;
 
     $status = ['status'=>true,'path'=>'','errors'=>[]];
 
