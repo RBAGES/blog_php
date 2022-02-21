@@ -17,6 +17,12 @@ function listArticles(string $title = 'nos articles')
         return ($art_time <= time());
     });
 
+    if (!empty($_GET['search'])){
+        $articles = array_filter($articles,function($article){
+            return strpos($article->contenu,$_GET['search']) || strpos($article->titre,$_GET['search']);
+        });
+    }
+
     include_once PATH_VIEWS . 'list-articles.php';
 }
 

@@ -12,6 +12,11 @@
           <?php if(isAdmin()) { ?>
             <a class="nav-link active" aria-current="page" href="<?= url('add-article') ?>">Ajouter un article</a>
           <?php } ?>
+          <form method="get" class="d-flex">
+            <input type="hidden" name="route" value="list-articles" />
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
         </div>
         <div class="nav__right d-flex align-items-center">
           <?php if (empty($_SESSION['id'])) { ?>
