@@ -56,6 +56,9 @@ function errorMessage(int $code): string
         case 101:
             $error = 'Aucun produit n\'est disponible';
             break;
+        case 102:
+            $error = 'Utilisateur introuvable';
+            break;
 
         default:
             $error = 'Erreur inconnue';

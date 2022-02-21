@@ -10,8 +10,12 @@ define('PATH_VIEW_INCLUDES', __DIR__ . '/views/includes/');
 
 session_start();
 include_once __DIR__ . '/functions.php';
-
 connexion();
+
+if (empty($_SESSION['id']) && !empty($_COOKIE['id'])){
+    include_once PATH_CONTROLERS . 'user-controler.php';
+    loginUserHandler(getUtilisateur($_COOKIE['id']));
+}
 
 if (empty($_GET['route'])) {
     include_once PATH_CONTROLERS . 'home-controler.php';

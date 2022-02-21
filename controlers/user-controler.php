@@ -93,3 +93,14 @@ function createUserHandler(){
     $utilisateur->save();
     redirect('login');
 }
+
+
+function getUtilisateur(int $id): object{
+    try {
+        $utilisateur = Utilisateur::retrieveByPK($id);
+        return $utilisateur;
+    } catch (\Throwable $th) {
+        displayError(102);
+    }
+}
+
