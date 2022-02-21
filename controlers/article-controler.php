@@ -158,11 +158,15 @@ function getArticle()
  */
 function getCommentaires(int $id_article): array{
     $comments = Commentaire::retrieveByField('id_article', $id_article,SimpleOrm::FETCH_MANY);
+    $users = Utilisateur::all();
+
 
     $usersIndexedByCommentID = [];
     foreach ($comments as $comment) {
-        $user = Utilisateur::sql('SELECT * FROM `utilisateur` AS U JOIN commentaire AS C ON U.id = C.id_utilisateur WHERE C.id_article ='.$_GET['id']." AND C.id=".$comment->id,SimpleOrm::FETCH_ONE);
-        $usersIndexedByCommentID[$comment->id] = $user;
+        foreach ($users as $user) {
+            if($user->id === $comment->id_utilisateur)
+                $usersIndexedByCommentID[$comment->id] = $user;
+        }        
     }
 
     return ['comments' => $comments, 'users' => $usersIndexedByCommentID];
