@@ -11,6 +11,11 @@ function listArticles(string $title = 'nos articles')
 {
     $articles = Article::all();
 
+    // tri des articles par date décroissante
+    uasort($articles, function($art1,$art2){
+        return (new DateTime($art1->date_de_publication))->getTimeStamp() <= (new DateTime($art2->date_de_publication))->getTimeStamp();
+    });
+
     // on filtre les articles dont la date de publication est postérieure à la date actuelle
     $articles = array_filter($articles,function($article){
         $art_time = (new DateTime($article->date_de_publication))->getTimeStamp();
