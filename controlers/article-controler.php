@@ -2,6 +2,7 @@
 
 require_once PATH_MODELS . 'Article.php';
 require_once PATH_MODELS . 'Commentaire.php';
+require_once PATH_MODELS . 'Utilisateur.php';
 
 /**
  * récupère tous les articles dans la base de données et appelle la vue qui affiche la liste
@@ -152,10 +153,19 @@ function getArticle()
 
 /**
  * fonction qui récupère les commentaires de l'article ayant l'id passé en paramètre
+ * @param int $id_article l'id de l'article sur lequel sont postés les commentaires
+ * @return array un tableau contenant le tableau des commentaires et le tableau des utilisateurs qui y sont liés, indexés par l'id des commentaires
  */
 function getCommentaires(int $id_article): array{
     $comments = Commentaire::retrieveByField('id_article', $id_article,SimpleOrm::FETCH_MANY);
-    return $comments;
+
+    $usersIndexedByCommentID = [];
+    foreach ($comments as $comment) {
+        $user = Utilisateur::sql('SELECT * FROM `utilisateur` AS U JOIN commentaire AS C ON U.id = C.id_utilisateur WHERE C.id_article ='.$_GET['id']." AND C.id=".$comment->id,SimpleOrm::FETCH_ONE);
+        $usersIndexedByCommentID[$comment->id] = $user;
+    }
+
+    return ['comments' => $comments, 'users' => $usersIndexedByCommentID];
 }
 
 /**
