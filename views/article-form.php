@@ -17,7 +17,7 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
         </div>
         <div class="mb-3">
             <label for="date_de_publication" class="form-label">date de publication : </label>
-            <input type="date" class="form-control" id="date_de_publication" name="date_de_publication" value="<?= $_POST['date_de_publication'] ?? $article->date_de_publication ?? null ?>">
+            <input type="date" class="form-control" id="date_de_publication" name="date_de_publication" value="<?= $_POST['date_de_publication'] ?? explode(' ',$article->date_de_publication)[0] ?? null ?>">
         </div>
         <div class="mb-3">
             <label for="contenu" class="form-label required">contenu : </label>

@@ -29,7 +29,8 @@ function detailsArticle(string $title = 'detail de l\'article')
  */
 function manageArticle(object $article = null, string $title = 'ajouter un article')
 {
-
+    if(!isAdmin())
+     displayError(403);
     //le message d'erreur qui sera affiché s'il y en a
     $errors = [];
 
@@ -77,7 +78,7 @@ function manageArticleHandler(object $article = null, bool $delete = false)
     $article->contenu = $_POST['contenu'];
     $article->image = $_POST['image'];
     $article->auteur = $_POST['auteur'];
-    $article->date_de_publication = $_POST['date_de_publication'];
+    $article->date_de_publication = ((empty($_POST['date_de_publication']))? date('Y-m-d H:i:s') : $_POST['date_de_publication']);
 
     $article->save();
     redirect('list-articles');
@@ -90,13 +91,16 @@ function manageArticleHandler(object $article = null, bool $delete = false)
  */
 function editArticle(string $title = 'modifier l\'article')
 {
+    if(!isAdmin())
+     displayError(403);
+
     $errors = [];
 
     $article = getArticle();
     if (empty($_POST['submit']))
         include_once PATH_VIEWS . 'article-form.php';
 
-    if (!empty($_POST['submit']))
+    else
         manageArticle($article, $title);
 }
 
@@ -105,6 +109,9 @@ function editArticle(string $title = 'modifier l\'article')
  */
 function deleteArticle()
 {
+    if(!isAdmin())
+     displayError(403);
+     
     $article = getArticle();
     manageArticleHandler($article, true);
 }

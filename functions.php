@@ -95,3 +95,70 @@ function redirect(string $url, int $id = -1){
     header("Location: ".url($url,$id));
     die();
 }
+
+/**
+ * retourne true si l'utilisateur est connecté en tant qu'admin
+ */
+function isAdmin():bool{
+    return (!empty($_SESSION['role']) && $_SESSION['role']==='admin');
+}
+
+/**
+ * transforme une chaine représentant une date en une répresentation plus lisible comportant les mois en français
+ * @param string $dateStr la date qu'on veut transformer
+ * @return string la date sous la forme 'Le {jour} {mois} {année} à {heure}h{minute}'
+ */
+function formatDate(string $dateStr):string{
+    $date = new DateTime($dateStr);
+    $day = intval($date->format('d'));
+    $month = intval($date->format('m'));
+    $year = intval($date->format('Y'));
+    $hour = $date->format('H');
+    $minute = $date->format('i');
+
+    switch ($month) {
+        case 1:
+            $monthName = 'Janvier';
+            break;
+        case 2:
+            $monthName = 'Février';
+            break;
+        case 3:
+            $monthName = 'Mars';
+            break;
+        case 4:
+            $monthName = 'Avril';
+            break;
+        case 5:
+            $monthName = 'Mai';
+            break;
+        case 6:
+            $monthName = 'Juin';
+            break;
+        case 7:
+            $monthName = 'Juillet';
+            break;
+        case 8:
+            $monthName = 'Août';
+            break;
+        case 9:
+            $monthName = 'Septembre';
+            break;
+        case 10:
+            $monthName = 'Octobre';
+            break;
+        case 11:
+            $monthName = 'Novembre';
+            break;
+        case 12:
+            $monthName = 'Décembre';
+            break;
+            
+            
+        default:
+            $monthName = 'erreur sur le mois';
+        break;
+    }
+    return 'Le '.$day.' '.$monthName.' '.$year.' à '.$hour.'h'.$minute;
+
+}

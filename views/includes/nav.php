@@ -9,7 +9,7 @@
         <div class="nav__left d-flex">
           <a class="nav-link active" aria-current="page" href="<?= url('home') ?>">Home</a>
           <a class="nav-link active" aria-current="page" href="<?= url('list-articles') ?>">Liste des articles</a>
-          <?php if(!empty($_SESSION['role']) && $_SESSION['role']==='admin') { ?>
+          <?php if(isAdmin()) { ?>
             <a class="nav-link active" aria-current="page" href="<?= url('add-article') ?>">Ajouter un article</a>
           <?php } ?>
         </div>
@@ -21,9 +21,9 @@
               <span class="text-success mx-3"> Bienvenue <?= $_SESSION['pseudo'] ?>!</span>
             <?php }
             if (!empty($_SESSION['avatar'])) { ?>
-              <img height="30" src="<?= $_SESSION['avatar'] ?>" alt="avatar">
+              <img class="rounded-circle" height="40" src="<?= $_SESSION['avatar'] ?>" alt="avatar">
             <?php } ?>
-            <a class="nav-link active mx-3" aria-current="page" href="<?= url('signout') ?>">Se déconnecter</a>
+            <a class="nav-link active mx-3" aria-current="page" href="<?= url('signout') ?>" onclick="return confirm('voulez vous vraiment vous déconnecter?')">Se déconnecter</a>
           <?php } ?>
         </div>
       </div>
