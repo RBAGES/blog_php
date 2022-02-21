@@ -12,8 +12,8 @@ include_once PATH_VIEW_INCLUDES . '/header.php';
             <input type="text" required="required" class="form-control" id="pseudo" name="pseudo" value="<?= $_POST['pseudo'] ?? '' ?>">
         </div>
         <div class="mb-3">
-            <label for="identifiant" class="form-label required">votre identifiant : </label>
-            <input type="text" required="required" class="form-control" id="identifiant" name="identifiant" value="<?= $_POST['identifiant'] ?? '' ?>">
+            <label for="identifiant" class="form-label required">votre identifiant (adresse email) : </label>
+            <input type="email" required="required" class="form-control" id="identifiant" name="identifiant" value="<?= $_POST['identifiant'] ?? '' ?>">
         </div>
         <div class="mb-3">
             <label for="identifiant" class="form-label">l'url de votre avatar : </label>

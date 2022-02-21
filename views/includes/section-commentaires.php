@@ -10,7 +10,7 @@
                 <?php } ?>
 
                 <?php foreach ($comments["comments"] as $comment) {  
-                    $user = $comments['users'][$comment->id];
+                    $user = $comments['users'][$comment->id] ?? null;
                     ?>
 
                     <div class="card mb-4">

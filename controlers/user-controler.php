@@ -67,9 +67,14 @@ function createUser($title = 'créer un compte'){
     if(!empty($_POST['submit'])){
         if(!empty($_POST['pseudo']) && !empty($_POST['identifiant']) && !empty($_POST['mot_de_passe']) && !empty($_POST['validation_mot_de_passe'])){
             if($_POST['validation_mot_de_passe'] === $_POST['mot_de_passe'])
-            createUserHandler();
+                if (!filter_var($_POST['identifiant'], FILTER_VALIDATE_EMAIL)) 
+                    $errors[] = 'veuillez entrer une adresse mail valide';
+                else
+                    createUserHandler();
             else
                 $errors[] = 'les mots de passe ne correspondent pas';
+                
+            
 
         }
         else
@@ -91,6 +96,7 @@ function createUserHandler(){
     $utilisateur->identifiant = $_POST['identifiant'];
 
     $utilisateur->save();
+    mail($_POST['identifiant'],'Inscription réussie','Bienvenue sur notre site!');
     redirect('login');
 }
 
