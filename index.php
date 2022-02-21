@@ -40,6 +40,10 @@ if (empty($_GET['route'])) {
             include_once PATH_CONTROLERS . 'article-controler.php';
             deleteArticle();
             break;
+        case 'new-comment':
+            include_once PATH_CONTROLERS . 'article-controler.php';
+            newCommentHandler();
+            break;
         case 'login':
             include_once PATH_CONTROLERS . 'user-controler.php';
             loginUser();

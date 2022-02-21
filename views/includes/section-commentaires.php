@@ -2,7 +2,7 @@
     <div class="col-md-8 col-lg-6">
         <div class="card shadow-0 border" style="background-color: #f0f2f5;">
             <div class="card-body p-4" id="commentlist">
-                <form method="POST" class="form-outline mb-4">
+                <form method="POST" class="form-outline mb-4" action="<?= url('new-comment',$_GET['id']) ?>">
                     <input required="required" name="contenu" type="text" id="addANote" class="form-control" placeholder="Type comment..." />
                     <input type="submit" name="newComment" value="Ajouter un commentaire" class="btn btn-primary mt-3" id="addCommentBtn">
                 </form>

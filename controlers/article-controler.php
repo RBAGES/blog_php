@@ -22,8 +22,6 @@ function detailsArticle(string $title = 'detail de l\'article')
     if(empty($_GET['id']))
         displayError(404);
 
-    if (!empty($_POST['newComment']))
-        newCommentHandler();
     $article = getArticle();
     $comments = getCommentaires($_GET['id']);
 
@@ -154,12 +152,15 @@ function getCommentaires(int $id_article): array{
  */
 function newCommentHandler(){
     
-        $commentaire = new Commentaire();
-        $commentaire->contenu = $_POST['contenu'];
-        $commentaire->id_utilisateur = $_SESSION['id'] ?? -1;
-        $commentaire->id_article = $_GET['id'];
-        $commentaire->date_publication = date('Y-m-d H:i:s');
+    if (empty($_POST['newComment']))
+        displayError(404);
+    $commentaire = new Commentaire();
+    $commentaire->contenu = $_POST['contenu'];
+    $commentaire->id_utilisateur = $_SESSION['id'] ?? -1;
+    $commentaire->id_article = $_GET['id'];
+    $commentaire->date_publication = date('Y-m-d H:i:s');
 
-        $commentaire->save();
+    $commentaire->save();
+    redirect('article',$_GET['id']);
     
 }
