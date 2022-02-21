@@ -11,6 +11,12 @@ function listArticles(string $title = 'nos articles')
 {
     $articles = Article::all();
 
+    // on filtre les articles dont la date de publication est postérieure à la date actuelle
+    $articles = array_filter($articles,function($article){
+        $art_time = (new DateTime($article->date_de_publication))->getTimeStamp();
+        return ($art_time <= time());
+    });
+
     include_once PATH_VIEWS . 'list-articles.php';
 }
 

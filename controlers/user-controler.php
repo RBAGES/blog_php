@@ -61,28 +61,31 @@ function signoutUserHandler(){
 /**
  * appelle le formulaire de création de compte et fait les test quand celui-ci est submit
  */
-function createUser($title = 'créer un compte'){
+function createUser($title = 'créer un compte')
+{
 
     $errors = [];
-    if(!empty($_POST['submit'])){
-        if(!empty($_POST['pseudo']) && !empty($_POST['identifiant']) && !empty($_POST['mot_de_passe']) && !empty($_POST['validation_mot_de_passe'])){
-            if($_POST['validation_mot_de_passe'] === $_POST['mot_de_passe'])
-                if (!filter_var($_POST['identifiant'], FILTER_VALIDATE_EMAIL)) 
-                    $errors[] = 'veuillez entrer une adresse mail valide';
+    if (!empty($_POST['submit'])) {
+        //si tous les champs obligatoires ont été remplis
+        if (!empty($_POST['pseudo']) && !empty($_POST['identifiant']) && !empty($_POST['mot_de_passe']) && !empty($_POST['validation_mot_de_passe'])) {
+            //si les deux mots de passe sont les mêmes
+            if ($_POST['validation_mot_de_passe'] === $_POST['mot_de_passe'])
+                //si l'identifiant est une adresse mail valide
+                if (filter_var($_POST['identifiant'], FILTER_VALIDATE_EMAIL))
+                    // si l'identifiant n'existe pas
+                    if (empty(Utilisateur::retrieveByField('identifiant', $_POST['identifiant'], SimpleOrm::FETCH_ONE)))
+                        createUserHandler();
+                    else
+                        $errors[] = 'cet identifiant existe déjà';
                 else
-                    createUserHandler();
+                    $errors[] = 'veuillez entrer une adresse mail valide';
             else
                 $errors[] = 'les mots de passe ne correspondent pas';
-                
-            
-
-        }
-        else
-        $errors[] = 'Veuillez remplir tous les champs obligatoires (ceux avec un * rouge)';
+        } else
+            $errors[] = 'Veuillez remplir tous les champs obligatoires (ceux avec un * rouge)';
     }
 
-    include PATH_VIEWS. 'user-create-form.php';
-
+    include PATH_VIEWS . 'user-create-form.php';
 }
 
 /**
