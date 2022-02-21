@@ -20,8 +20,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex flex-row align-items-center">
                                     <img class="rounded-circle" src="<?= (!empty($user)? $user->avatar : 'https://bip.cnrs.fr/wp-content/uploads/2019/11/user.jpg');?>" alt="avatar" width="25" height="25" />
-                                    <p class="small mb-0 ms-2"><?= (!empty($user)? $user->pseudo : 'anonyme');?>
-                                    </p>
+                                    <p class="small mb-0 ms-2"><?= (!empty($user)? $user->pseudo : 'anonyme');?></p>
                                 </div>
                                 <div class="mb-1 text-muted"><?= formatDate($comment->date_publication) ?></div>
                             </div>
@@ -36,3 +35,9 @@
 </div>
 </div>
 </div>
+
+<script>
+    var id = <?= $_GET['id']?>;
+</script>
+
+<script src="assets/js/comments.js"></script>

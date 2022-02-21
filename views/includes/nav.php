@@ -14,7 +14,7 @@
           <?php } ?>
           <form method="get" class="d-flex">
             <input type="hidden" name="route" value="list-articles" />
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="<?= $_GET['search'] ?? ''?>">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>

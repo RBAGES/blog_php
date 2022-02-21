@@ -49,6 +49,10 @@ if (empty($_GET['route'])) {
             include_once PATH_CONTROLERS . 'article-controler.php';
             newCommentHandler();
             break;
+        case 'new-comment-ajax':
+            include_once PATH_CONTROLERS . 'article-controler.php';
+            newCommentAjaxHandler();
+            break;
         case 'login':
             include_once PATH_CONTROLERS . 'user-controler.php';
             loginUser();

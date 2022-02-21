@@ -22,9 +22,10 @@ function listArticles(string $title = 'nos articles')
         return ($art_time <= time());
     });
 
+    //si l'utilisateur a fait une recherche, on filtre les articles dont le titre ou le contenu ne contiennent pas la chaîne recherchée
     if (!empty($_GET['search'])){
         $articles = array_filter($articles,function($article){
-            return strpos($article->contenu,$_GET['search']) || strpos($article->titre,$_GET['search']);
+            return (strpos(mb_strtolower($article->contenu),mb_strtolower($_GET['search']))!==false) || (strpos(mb_strtolower($article->titre),mb_strtolower($_GET['search']))!==false);
         });
     }
 
@@ -75,12 +76,13 @@ function manageArticle(object $article = null, string $title = 'ajouter un artic
 
             $uploadResult = [];
 
+            unlink($article->image);
+
             if(file_exists($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])){
                 $uploadResult = saveUploadedFile($_FILES['image']);
                 if(!empty($uploadResult['errors']))
                     $errors = array_merge($errors,$uploadResult['errors']);
-            }else if(!is_null($article))
-                unlink($article->image);
+            }
             
 
             // si pas d'erreur on appelle le handler pour enregistrer le produit
@@ -174,7 +176,7 @@ function getArticle()
  * @return array un tableau contenant le tableau des commentaires et le tableau des utilisateurs qui y sont liés, indexés par l'id des commentaires
  */
 function getCommentaires(int $id_article): array{
-    $comments = Commentaire::retrieveByField('id_article', $id_article,SimpleOrm::FETCH_MANY);
+    $comments = array_reverse(Commentaire::retrieveByField('id_article', $id_article,SimpleOrm::FETCH_MANY));
     $users = Utilisateur::all();
 
 
@@ -208,4 +210,18 @@ function newCommentHandler(){
     $commentaire->save();
     redirect('article',$_GET['id']);
     
+}
+
+
+function newCommentAjaxHandler(){
+    $request = json_decode($_POST['request']);
+
+    $commentaire = new Commentaire();
+
+    $commentaire->id_utilisateur = $_SESSION['id'];
+    $commentaire->id_article = $request->article_id;
+    $commentaire->contenu = $request->contenu;
+
+    echo json_encode(['pseudo' => $_SESSION['pseudo'], 'avatar'=> $_SESSION['avatar'],'date'=> formatDate(date_format(new DateTime(),'Y-m-d H:i:s'))]);
+    $commentaire->save();
 }
