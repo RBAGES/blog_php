@@ -4,7 +4,7 @@
             <div class="card-body p-4" id="commentlist">
                 <form method="POST" class="form-outline mb-4">
                     <input required="required" name="contenu" type="text" id="addANote" class="form-control" placeholder="Type comment..." />
-                    <input type="submit" name="submit" value="Ajouter un commentaire" class="btn btn-primary mt-3" id="addCommentBtn">
+                    <input type="submit" name="newComment" value="Ajouter un commentaire" class="btn btn-primary mt-3" id="addCommentBtn">
                 </form>
 
                 <?php foreach ($comments as $comment) {  ?>

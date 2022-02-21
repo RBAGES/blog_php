@@ -21,8 +21,12 @@ function detailsArticle(string $title = 'detail de l\'article')
 {
     if(empty($_GET['id']))
         displayError(404);
+
+    if (!empty($_POST['newComment']))
+        newCommentHandler();
     $article = getArticle();
     $comments = getCommentaires($_GET['id']);
+
     include_once PATH_VIEWS . 'article-details.php';
 }
 
@@ -136,10 +140,26 @@ function getArticle()
         }
     }
 }
+
 /**
  * fonction qui récupère les commentaires de l'article ayant l'id passé en paramètre
  */
 function getCommentaires(int $id_article): array{
     $comments = Commentaire::retrieveByField('id_article', $id_article,SimpleOrm::FETCH_MANY);
     return $comments;
+}
+
+/**
+ * fonction qui enregistre un commentaire dans la base de données
+ */
+function newCommentHandler(){
+    
+        $commentaire = new Commentaire();
+        $commentaire->contenu = $_POST['contenu'];
+        $commentaire->id_utilisateur = $_SESSION['id'] ?? -1;
+        $commentaire->id_article = $_GET['id'];
+        $commentaire->date_publication = date('Y-m-d H:i:s');
+
+        $commentaire->save();
+    
 }
