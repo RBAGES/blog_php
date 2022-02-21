@@ -152,6 +152,9 @@ function getCommentaires(int $id_article): array{
  */
 function newCommentHandler(){
     
+    if (empty($_SESSION['id']))
+        displayError(401);
+
     if (empty($_POST['newComment']))
         displayError(404);
     $commentaire = new Commentaire();
