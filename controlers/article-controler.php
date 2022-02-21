@@ -53,11 +53,20 @@ function manageArticle(object $article = null, string $title = 'ajouter un artic
             // si la date est renseignée, elle doit être correcte
             if (!empty($_POST['date_de_publication']) && (!DateTime::createFromFormat('Y-m-d', $_POST['date_de_publication'])))
                 $errors[] = 'date incorrecte';
+            
 
+            $uploadResult = [];
+
+            if(file_exists($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])){
+                $uploadResult = saveUploadedFile($_FILES['image']);
+                if(!empty($uploadResult['errors']))
+                    $errors = array_merge($errors,$uploadResult['errors']);
+            }
+            
 
             // si pas d'erreur on appelle le handler pour enregistrer le produit
             if (empty($errors)) {
-                manageArticleHandler($article);
+                manageArticleHandler($article,false, $uploadResult);
             }
         } else
             $errors[] = 'Veuillez remplir tous les champs obligatoires (avec un *)';
@@ -71,18 +80,19 @@ function manageArticle(object $article = null, string $title = 'ajouter un artic
  * @param object $article si l'article passé est null alors on crée un nouveau article sinon on modifie $article et on l'enregistre
  * @param bool $delete true si on veut supprimer l'article en paramètre
  */
-function manageArticleHandler(object $article = null, bool $delete = false)
+function manageArticleHandler(object $article = null, bool $delete = false,array $uploadResult=[])
 {
 
     if (is_null($article))
         $article = new Article();
     else if ($delete) {
+        unlink($article->image);
         $article->delete();
         redirect('list-articles');
     }
     $article->titre = $_POST['titre'];
     $article->contenu = $_POST['contenu'];
-    $article->image = $_POST['image'];
+    $article->image = $uploadResult['path']??'';
     $article->auteur = $_POST['auteur'];
     $article->date_de_publication = ((empty($_POST['date_de_publication']))? date('Y-m-d H:i:s') : $_POST['date_de_publication']);
 

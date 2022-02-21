@@ -2,11 +2,12 @@
 // routeur
 
 //constantes
-define('PATH_IMAGES', __DIR__ . '/assets/img/');
+define('PATH_IMAGES', 'assets/img/');
 define('PATH_MODELS', __DIR__ . '/models/');
 define('PATH_CONTROLERS', __DIR__ . '/controlers/');
 define('PATH_VIEWS', __DIR__ . '/views/');
 define('PATH_VIEW_INCLUDES', __DIR__ . '/views/includes/');
+define('MAX_FILE_SIZE', 5 * (2**20));//5 Mo
 
 session_start();
 include_once __DIR__ . '/functions.php';

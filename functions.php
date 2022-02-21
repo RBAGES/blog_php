@@ -165,3 +165,47 @@ function formatDate(string $dateStr):string{
     return 'Le '.$day.' '.$monthName.' '.$year.' à '.$hour.'h'.$minute;
 
 }
+
+/**
+ * fonction qui récupère le fichier uploadé et le met dans le dossier des images
+ * @param array $file le fichier uploadé (correspond à $_FILES['monfichier']) 
+ * @return array un tableau contenant le status de l'upload (true si ok, false sinon), le chemin du fichier enregistré et un tableau d'erreurs s'il y en a 
+ */
+function saveUploadedFile(array $file):array{
+    if(empty($file))
+        return 'aucun fichier fourni';
+
+    $type = explode('/',$file['type'])[0];
+    $extension = '.'.pathinfo($file['name'],PATHINFO_EXTENSION);
+    $originalName = pathinfo($file['name'],PATHINFO_FILENAME);
+    $size = $file['size'];
+    $error = $file['error'];
+    $newName = uniqid('image').'-'.$originalName.$extension;
+
+    $status = ['status'=>true,'path'=>'','errors'=>[]];
+
+    if ($type !=='image'){
+        $status['status'] = false;
+        $status['errors'][] = 'le fichier n\'est pas une image';
+    }
+
+    if ($size > MAX_FILE_SIZE){
+        $status['status'] = false;
+        $status['errors'][] = 'le fichier est trop volumineux ('.intval($size/2**10).'ko), la taille maximale acceptée est de : '. intval(MAX_FILE_SIZE /(2**10)).'ko';
+    }
+    if ($error != 0){
+        $status['status'] = false;
+        $status['errors'][] = 'une erreur est survenue lors du téléversement du fichier';
+    }
+    
+    if($status['status']){
+        if (move_uploaded_file($file['tmp_name'], PATH_IMAGES.$newName))
+            $status['path'] = PATH_IMAGES.$newName;
+        else{
+            $status['status'] = false;
+            $status['errors'][] = 'une erreur est survenue lors du téléversement du fichier';
+        }
+    }
+
+    return $status;
+}

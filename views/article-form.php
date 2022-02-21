@@ -6,7 +6,7 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
 
 
 <div class="container">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="titre" class="form-label required">titre : </label>
             <input required="required" type="text" class="form-control" id="titre" name="titre" value="<?= $_POST['titre'] ?? $article->titre ?? null ?>">
@@ -24,8 +24,8 @@ include_once PATH_VIEW_INCLUDES . 'header.php';
             <textarea required="required" class="form-control" name="contenu" id="contenu" rows="10"><?= $_POST['contenu'] ?? $article->contenu ?? null ?></textarea>
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label">adresse de l'image : </label>
-            <input type="text" class="form-control" id="image" name="image" value="<?= $_POST['image'] ?? $article->image ?? null ?>">
+            <label for="image" class="form-label">image de l'article : </label>
+            <input type="file" class="form-control" id="image" name="image">
         </div>
         
         <input type="submit" class="btn btn-primary" name="submit" value="Valider">
