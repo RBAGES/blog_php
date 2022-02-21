@@ -19,4 +19,7 @@ include_once PATH_VIEW_INCLUDES.'header.php';
 </div>
 
 <?php
-include_once PATH_VIEW_INCLUDES.'header.php';
+include_once PATH_VIEW_INCLUDES . 'section-commentaires.php';
+
+
+include_once PATH_VIEW_INCLUDES.'footer.php';

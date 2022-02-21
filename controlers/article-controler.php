@@ -1,6 +1,7 @@
 <?php
 
 require_once PATH_MODELS . 'Article.php';
+require_once PATH_MODELS . 'Commentaire.php';
 
 /**
  * récupère tous les articles dans la base de données et appelle la vue qui affiche la liste
@@ -14,11 +15,14 @@ function listArticles(string $title = 'nos articles')
 
 
 /**
- * récupère un article en fonction de l'id passé en url et appelle la vue qui affiche les détails d'un article
+ * récupère un article et appelle la vue qui affiche les détails d'un article
  */
 function detailsArticle(string $title = 'detail de l\'article')
 {
+    if(empty($_GET['id']))
+        displayError(404);
     $article = getArticle();
+    $comments = getCommentaires($_GET['id']);
     include_once PATH_VIEWS . 'article-details.php';
 }
 
@@ -131,4 +135,11 @@ function getArticle()
             displayError(404);
         }
     }
+}
+/**
+ * fonction qui récupère les commentaires de l'article ayant l'id passé en paramètre
+ */
+function getCommentaires(int $id_article): array{
+    $comments = Commentaire::retrieveByField('id_article', $id_article,SimpleOrm::FETCH_MANY);
+    return $comments;
 }
